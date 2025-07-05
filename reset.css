@@ -1,0 +1,116 @@
+/*
+  From Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    outline: 1px red solid;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    /* overflow: scroll; */
+}
+
+/*  in the browser's responsive 'device toolbar'
+    there's this persistent outline due to the
+    code below. Commenting it out makes it disappear */
+/* html,
+body {
+    height: 100%;
+} */
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+
+}
+
+
+img,
+picture,
+video,
+canvas,
+svg {
+    max-width: 100%;
+    display: block; 
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+    isolation: isolate;
+}
+
+
+/* utility classes */
+
+.dark-overlay {
+    display: block;
+    position: fixed;
+    /* top: 54px; */
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    /* background-color: rgba(0, 0, 0, 50%); */
+    background-color: rgba(0, 0, 0, 100%);
+}
+
+.overflow-hidden {
+    position: fixed;
+}
+
+/* These lines were originally in the KP tutorial. Future implementation might reuse them */
+/* .overflow-hidden {
+    overflow-y: hidden;
+    height: 100vh;
+    padding-right: 17px;
+} */
+
+/* the next attribute is needed IF there is a scrollbar, otherwise not needed */
+.px-17 {
+    padding-right: 17px;
+}
+
+/* from: https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html */
+.sr-only:not(:focus):not(:active) {
+    clip: rect(0 0 0 0); 
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap; 
+    width: 1px;
+}
+
+/* reset for button */
+button {
+    display: inline-block;
+    border: none;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    background: none;
+}

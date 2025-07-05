@@ -1,0 +1,334 @@
+@import url('./reset.css');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Fraunces:opsz,wght@9..144,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Fraunces:opsz,wght@9..144,900&display=swap');
+
+/* <uniquifier>: Use a unique and descriptive class name */
+.fraunces {
+    font-family: "Fraunces", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:
+      "SOFT" 0,
+      "WONK" 0;
+}
+
+.barlow-regular {
+    font-family: "Barlow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.barlow-semibold {
+    font-family: "Barlow", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+:root {
+    /* Primary */
+    --primary-soft-red: hsl(7, 99%, 70%);
+    --primary-yellow: hsl(51, 100%, 49%);
+    --primary-dark-desaturated-cyan: hsl(167, 40%, 24%); /*  graphic design text */
+    --primary-dark-blue: hsl(198, 62%, 26%); /*  photography text */
+    --primary-dark-moderate-cyan: hsl(168, 34%, 41%); /*  footer */
+    
+    /* Neutral */
+    --neutal-very-dark-desaturated-blue: hsl(212, 27%, 19%);
+    --neutal-very-dark-grayish-blue: hsl(213, 9%, 39%);
+    --neutal-dark-grayish-blue: hsl(232, 10%, 55%);
+    --neutal-grayish-blue: hsl(210, 4%, 67%);
+    --neutal-white: hsl(0, 0%, 100%);
+    
+    /* font body copy */
+    --fs-body-copy: 18px;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    /* background-color: coral; */
+}
+
+.container {
+    /* width: 1440px; */
+    /* display: inline-block; */
+    margin: 0 auto;
+    /* padding: 0 min(1em, 7%); */
+}
+
+.hero {
+   /*  position: relative;
+    height: 100%;
+    border: 5px green dotted; */
+    display: grid;
+}
+
+.hero-overlay {
+    grid-area: 1/-1;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    
+}
+.hero-text {
+    font-size: 2.5rem;
+    color: white;
+    text-transform: uppercase;
+}
+
+.arrow-down {
+    object-fit: cover; 
+    min-height: 0;
+}
+/* was .hero-image */
+.hero-image {
+    /* border: 5px black dashed; */
+    width: 100%;
+    height: auto;
+    grid-area: 1/-1;
+    /* object-fit: cover; */
+    z-index: -1;
+}
+
+.menubar {
+    grid-area: 1/-1;
+    /* align-items: start; */
+    
+    height: 10vh;
+    opacity: .5;
+    background-color: blueviolet;
+    display: inline-flex;
+    /* flex-direction: row; */
+    /* align-items: center; */
+
+}
+
+.home-li {
+    /* margin-right: auto; */
+    /* padding: 1em; */
+}
+
+.logo {
+    /* next two lines are just to make the logo a bit bigger */
+    /* transform-origin: top left;
+    transform: scale(1.2); */
+    padding: 1em;
+    outline: 2px blue dashed;
+}
+
+
+nav {
+    /* background-color: var(--primary-dark-blue); */
+    border-bottom: 1px solid var(--hover-color);
+
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: min(15em, 100%);
+    z-index: 10;
+    border-left: 1px solid var(--hover-color);
+    transition: right 300ms ease-in-out;
+}
+
+nav ul {
+    list-style: none;
+    width: 100%;
+}
+
+nav.show {
+    right: 0;
+}
+
+/* nav.show~#overlay {
+    display: block;
+} */
+
+nav li {
+    display: flex;
+}
+
+/* nav a {
+    display: flex;
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 1em 2em;
+    transition: background-color 150ms ease;
+} */
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    width: 100%;
+    /* padding-left: 2.5em; */
+    padding: 1em 2em 1em 2.5em;
+    transition: background-color 150ms ease;
+}
+
+nav a:hover {
+    background-color: var(--hover-color);
+}
+
+/* nav a.active-link {
+    border-bottom: 2px solid var(--text-color);
+} */
+
+nav a:hover {
+    background-color: var(--hover-color);
+}
+
+nav a.active-link {
+    border-bottom: 2px solid var(--text-color);
+}
+
+/* nav a.accent-link {
+    background-color: var(--accent-color);
+} */
+
+/* #open-sidebar-button[aria-expanded="true"] */    /* with this it shows a strange button */
+/* #open-sidebar-button {
+    display: none;
+    background: none;
+    border: none;
+    padding: 1em;
+    margin-left: auto;
+    cursor: pointer;
+} */
+/* #close-sidebar-button[aria-expanded="false"] */
+/* #close-sidebar-button {
+    display: none;
+    background: none;
+    border: none;
+    padding: 1em;
+    cursor: pointer;
+} */
+#open-sidebar-button,
+#close-sidebar-button {
+    display: block;
+    margin-left: auto;
+    /* hamburger is placed on the right side */
+    background: none;
+    border: none;
+    padding: 1em;
+    cursor: pointer;
+}
+
+#overlay {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    display: none;
+}
+
+.features1 {
+    outline: 5px red solid;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.features2 {
+    outline: 5px green solid;
+    margin-bottom: 3rem;
+}
+.features3 {
+    outline: 5px blue solid;
+    margin-bottom: 3rem;
+}
+/* .features {
+    display: flex;
+    padding: 1rem;
+}
+
+.lower-links, .socials {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 3rem;
+}
+
+.socials {
+    margin-bottom: 2rem;
+} */
+
+
+/* media query below was originally a max-width. Open the 'testing-out-stuff' workspace and look for the responsive menu...coding2go */
+/* which was translated to mobile first from the original and copy it over */
+@media screen and (min-width: 700px) {
+
+    .container {
+        max-width: 1440px;
+    }
+    #open-sidebar-button,
+    #close-sidebar-button {
+        display: none;
+    }
+
+    .menubar {
+        /* max-width: 1440px; */
+        /* flex-direction: row; */
+        /* gap: 2rem; */
+
+        /* justify-content: space-between; */
+    }
+
+    nav {
+        /* justify-self: end; */
+        /* position: unset; */
+        /* width: 100%; */
+        /* height: auto; */
+        /* margin-right: auto; */
+        /* position: static; */
+        width: 100%;
+        height: auto;
+        /* margin: 1rem; */
+        background-color: crimson;
+    }
+
+    nav ul {
+        display: flex;
+        align-items: center;
+        /* justify-items: start; */
+    }
+    
+    .home-li {
+        margin-right: auto;
+    }
+
+    nav a {
+        padding: 1em 2em;
+    }
+
+    nav.show~#overlay {
+        display: none;
+    }
+
+    .features {
+        display: flex;
+        padding: 1rem;
+    }
+    
+    .lower-links, .socials {
+        margin-top: 3rem;
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        gap: 3rem;
+    }
+    
+    .socials {
+        margin-bottom: 2rem;
+    }
+}
+  
+
+.attribution {
+    font-size: 11px;
+    text-align: center; 
+}
+
+.attribution a {
+    color: hsl(228, 45%, 44%);
+}
