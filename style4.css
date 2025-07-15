@@ -25,6 +25,12 @@
     font-style: normal;
 }
 
+*,
+*::before,
+*::after {
+    outline: 1px red solid;
+}
+
 :root {
     /* Primary */
     --primary-soft-red: hsl(7, 99%, 70%);
@@ -47,40 +53,40 @@
 body {
     min-height: 100vh;
     min-height: 100dvh;
-    /* background-color: coral; */
 }
 
+/* Sets max width for the design as per the FEM guidelines and centers it */
 .container {
-    margin: 0 auto;
     max-width: 1440px;
+    margin: 0 auto;
 }
 
+/* Sets up the hero section and menubar */
 .hero {
     display: grid;
 }
 
+/* Places image:orange and moves it back */
 .hero-image {
-    /* border: 5px black dashed; */
     width: 100%;
     height: auto;
     grid-area: 1/-1;
-    /* object-fit: cover; */
     z-index: -1;
 }
 
+/* 'overlay is the text + the downward pointing svg arrow */
+/* they are placed on top of the orange */
 .hero-overlay {
     grid-area: 1/-1;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 5em;
-
-    /* position: relative; */
 }
 
 .hero-text {
-    /* font-size: 2.75rem; */
     font-size: 3rem;
     letter-spacing: .1em;
     text-align: center;
@@ -89,9 +95,10 @@ body {
 }
 
 .arrow-down {
+    /* these two don't seem to have an effect much */
     object-fit: cover; 
     min-height: 0;
-
+    /* animates the arrow */
     animation: 1.5s ease-in-out 0s infinite alternate pointing;
 }
 
@@ -103,10 +110,9 @@ body {
         transform: translateY(-1em);
     }
 }
-/* problem is in here */
+/* Here, the ☰ and ✖ are still separate and visible from each other */
 .menubar {
     grid-area: 1/-1;
-    /* background-color: rgba(87, 78, 65, .3); */
     
     display: flex;
     /* splits the logo and the navbar apart */
@@ -123,7 +129,7 @@ body {
 }
 
 nav {
-    outline: 5px green solid;
+    /* outline: 5px green solid; */
     /* colors don't exist yet */
     background-color: var(--primary-color, white);
     border-bottom: 1px solid var(--hover-color);
@@ -131,6 +137,7 @@ nav {
 
 @media screen and (max-width: 700px) {
     nav {
+        /* coded here is for menu sliding from the right */
         /* position: fixed;
         top: 0;
         right: -100%;
@@ -140,10 +147,11 @@ nav {
         border-left: 1px solid var(--hover-color);
         transition: right 300ms ease-in-out; */
 
+        /* code here for menu dropping from the top */
         position: fixed;
         /* Need this so the menu stretches all the way to the left */
         left: 0;
-        /* This makes the menu drop from the top */
+        /* This hides the menu at the top until it is needed */
         top: -100%;
         /* If uncommented, dropdown menu stretches all the way to the bottom. Commented out, only drops to however many items are in the menu */
         /* height: 100vh; */
@@ -154,7 +162,7 @@ nav {
         transition: top 300ms ease-in-out;
     }
 }
-
+/* removes the bullet points */
 nav ul {
     list-style: none;
 }
@@ -164,8 +172,8 @@ nav li {
 }
 
 nav a {
-    /* display: flex; */
     /* width 100% so that the hover effect will take place on mobile */
+    font-family: "Barlow", serif;
     width: 100%;
     text-decoration: none;
     color: var(--text-color);
@@ -182,10 +190,6 @@ nav a.accent-link {
     /* no colors yet */
     background-color: var(--accent-color);
 }
-/* places hamburger icon on the right */
-/* #open-sidebar-button {
-    margin-left: auto;
-} */
 
 #open-sidebar-button,
 #close-sidebar-button {
@@ -237,26 +241,30 @@ nav.show~#overlay {
     outline: 3px solid #ffffff;
 }
 
-.features .panel {
-    /* width: 50%; */
+/* .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+} */
+
+/* .features .panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+} */
+
+.panel.cherry,
+.panel.kumquat {
     display: grid;
+    /* grid-template-columns: 1fr 1fr; */
 }
-
-/* .panel picture,
-.panel .text { */
-    /* for the feature that stacks image and text over each other */
-    /* grid-area: 1/-1;
-    max-width: 40em; */
-
-    /* height: 50%; 
-}*/
-
+/* places images and text inside same panel (like in the hero), but only for cherry and kumquat */
 .panel.cherry > *,
 .panel.kumquat > * {
     grid-area: 1/-1;
-    /* max-width: 40em; */
+    /* margin: 0 auto; */
+    /* place-content: center; */
 }
-
 
 .text {
     /* makes the h3s start at the same position for both cherry and kumquat */
@@ -267,64 +275,86 @@ nav.show~#overlay {
     /* padding-inline: 1em;
     text-align: center;
     align-self: end; */
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
 
-    min-height: 40%;
+    /* min-width: 20em; */
+    /* max-width: 50%; */
+    /* min-height: 40%; */
     /* margin-top: 40%; */
     /* measured in both mobile and desktop: 36px */
-    gap: 2em;
-    text-align: center;
-    align-self: flex-end;
-    justify-content: space-around;
+    /* gap: 2em; */
+    /* text-align: center; */
+    /* align-self: flex-end; */
+    /* justify-content: space-around; */
     /* margin-top: 5em; */
 
-    padding-inline: 3.75em;
-    padding-block: 8em;
+    /* padding-inline: 3.75em;
+    padding-block: 8em; */
+}
+
+.text h3, a {
+    font-family: "Fraunces", serif;    
+    color: var(--neutral-very-dark-desaturated-blue, black);
 }
 
 .text h3 {
-    font-family: "Fraunces", serif;
     font-size: 1.5rem;
+    margin-bottom: 1em;
 }
 .text p {
     font-family: "Barlow", serif;
+    color: var(--neutral-very-dark-desaturated-blue, black);
+    margin-bottom: 1.5em;
 }
+
 /* for the egg and cup panels which has <a> links */
 .text a {
-    font-family: "Fraunces", serif;
-}
-/* spacing between any element within the .text class */
-.text > * {
-    /* padding-bottom: 1em; */
+    text-transform: uppercase;
 }
 
-.egg + .text,
-.cup + .text {
-    /* gap: 3em;
-    text-align: center; */
-    /* padding-inline: 3.75em;
-    padding-block: 4em; */
+.text > a {
+    /* PROBLEM: With display: flex in .text above, the <a> is now a block element and the underline technique below stretches more than its length */
+    /* text-decoration-color: var(--primary-yellow); */
+    padding-inline: .5em;
+    text-decoration: none; /* Remove default underline */
+    position: relative; /* Positioning for the pseudo-element */
 }
 
-/* .cherry + .text, 
-.kumquat + .text {
-    gap: 1rem;
-    height: 43em;
-    justify-content: end;
-} */
+/* DuckDuckGo's AI gave this hint with search prompt: 'blurring underline of anchor tag' */
+/* Me added z-index and adjusted stuff */
+.text > a::after {
+    content: ''; /* Create a pseudo-element */
+    position: absolute; /* Position it absolutely */
+    z-index: -5; /* Move it behind the text */
+    left: 0; /* Align to the left */
+    bottom: .02em; /* Align to the bottom */
+    height: .4em; /* Height of the underline */
+    width: 100%; /* Full width of the link */
+    /* background-color: var(--primary-yellow); */ /* Color of the underline */
+    filter: blur(2px); /* Apply blur effect */
+    /* transition: all 0.3s ease; */ /* Smooth transition */
+}
 
+.egg + .text > a::after {
+    background-color: var(--primary-yellow);
+}
+.cup + .text > a::after {
+    background-color: var(--primary-soft-red);
+}
+
+.cherry > .text,
+.kumquat > .text {
+    align-self: end;
+}
+
+
+/* sets formatting for the main block of 'clients' */
 .clients {
-    /* padding-top: 2em;
-    padding-bottom: 2em; */
     /* for desktop */
     /* padding-block: 12em; */
     /* for mobile */
-    padding-block: 3.5em;
-
-    /* display: flex;
-    flex-direction: column; */
-    
+    padding-block: 3.5em;    
     text-align: center;
 }
 
@@ -343,9 +373,8 @@ nav.show~#overlay {
     /* limit card width to: */
     max-width: 19em;
     /* separates each card vertically */
-    /* margin-top: 2em; */
     margin-top: 3.7em;
-    /* centers the card horizontally*/
+    /* centers the card horizontally */
     margin-inline: auto;
 }
 
@@ -364,9 +393,7 @@ nav.show~#overlay {
 .card .comment,
 .card .customer_position {
     font-family: "Barlow", sans-serif;
-    background-color: beige;
-    /* spaces all p elements vertically */
-    /* padding-block: 1.5em; */
+    /* background-color: beige; */
 }
 
 .card .customer {
@@ -376,19 +403,21 @@ nav.show~#overlay {
     padding-bottom: 1.16em;
 }
 
+.card .customer {
+    font-family: "Fraunces", serif;
+    padding-bottom: 1.16em;
+}
+
 .card img {
     /* rounds the image */
     border-radius: 50%;
     /* sizes it accordingly, 72px */
     width: 4em;
-    /* space between pic and comment: 42px */
-    /* padding-bottom: 2.3em; */
 }
 
 .photo-bar {
     display: flex;
     flex-wrap: wrap;
-    /* width: 50%; */
 }
 
 .photo-bar picture {
@@ -397,7 +426,8 @@ nav.show~#overlay {
 }
 
 footer {
-    background-color: var(--primary-dark-moderate-cyan);
+    /* background-color: var(--primary-dark-moderate-cyan); */
+    background-color: hsl(169, 42%, 65%);
     padding: 2em;
     height: 20em;
 
@@ -405,7 +435,10 @@ footer {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+}
 
+.sunnyfooter {
+    fill: var(--primary-dark-desaturated-cyan)
 }
 
 .lower-links, .socials {
@@ -417,22 +450,26 @@ footer {
     display: flex;
 }
 
+.lower-links > li > a,
+.socials > li > a {
+    /* changes font to */
+    font-family: "Barlow", serif;
+    /* removes underline */
+    text-decoration: none;
+    /* sets color to */
+    color: var(--primary-dark-desaturated-cyan)
+}
+
 .lower-links {
     /* spaces items apart */
     justify-content: space-between;
 }
+
 .socials {
     /* to adhere more closely to the design */
     margin-top: 2em;
     /* spaces items apart */
     justify-content: space-evenly;
-}
-/* footer svg {
-    margin: 0 auto;
-    margin-bottom: 2em;
-} */
-.sunnyfooter {
-    fill: var(--primary-dark-desaturated-cyan)
 }
 
 .attribution {
@@ -442,7 +479,6 @@ footer {
     width: 100%;
 }
 
-
 .attribution a { color: hsl(228, 45%, 44%); }
 
 @media screen and (min-width: 701px) {
@@ -451,79 +487,67 @@ footer {
     #close-sidebar-button {
         display: none;            
     }
-    
+
     /* places navigation items in a line in a larger viewport */
     nav ul {
         display: flex;
     }
-    
+
     /* sets equal padding left-right for each link */
     nav a {
         padding-left: 2em;
-    } 
-    
+    }
+
     /*  */
     /* nav a:hover {
         border-bottom: 2px solid var(--text-color);
     } */
     
     /* only for multipage links, or maybe SPAs */
-    nav a.active-link {
+    /* nav a.active-link {
         border-bottom: 2px solid var(--text-color);
-    }
-    
+    } */
+
     /* shifts the other list items to the right side */
-    nav .home-li {
+    /* nav .home-li {
         margin-right: auto;
-    }
-    
+    } */
+
     /* switches the overlay off, if the mobile menu is 'shown' when the browser viewport is dragged/maximized */
     nav.show~#overlay {
         display: none;
     }
 
-    
     .features {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        /* justify-content: center; */
     }
 
+    /* Here, the HTML the picture of the 'egg' is in the same position in the code as the rest, but in desktop mode the egg has to be on the right side */
     .features:first-of-type {
         flex-direction: row-reverse;
     }
 
-    .features .panel {
-        /* min-width: 50%; */
-        max-width: 50%;
-    }
-
     /* TODO: when viewport is ~792px, images egg and cup start to shrink vertically but maintains aspect-ratio, leaving white space at the bottom */
     /* CSS below does not seem to work. Other than this, the site works well enough. Only the menu needs taken care of */
-    .panel picture {
-        /* height: auto;
-        object-fit: contain;
-        object-position: center; */
-    }
-    
+    /* .panel picture > img {
+        margin: 0 auto;
+    } */
+
     .text {
-        /* margin: 0 auto;   */      
-        padding-block: 0.5em;
-        /* max-width: 12em; */
-        flex: 1;
+        /* padding-block: 0.5em;
+        margin-inline: 10em;
+        flex: 1; */
     }
-    
+
     .egg + .text,
     .cup + .text {
-        text-align: left;
-        align-self: center;
-        /* max-width: 50%; */
-        /* padding-inline: 10em; */
-
-        /* looks better without this */
-        /* gap: 2.75em; */
+        /* margin-inline: 6em;
+        text-align: left; */
+        /* align-self: center; */
     }
-    
+
     .testimonials {
         max-width: 65em;
         display: flex;
@@ -532,13 +556,10 @@ footer {
 
         margin-inline: auto;
     }
-    .clients {
-        /* for desktop */
-        padding-block: 12em;
-    }
 
-    .card {
-        /* max-width: 22em; */
+    .clients {
+        /* puts more whitespace for desktop */
+        padding-block: 12em;
     }
 
     .photo-bar picture {
