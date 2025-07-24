@@ -25,12 +25,6 @@
     font-style: normal;
 }
 
-*,
-*::before,
-*::after {
-    outline: 1px red solid;
-}
-
 :root {
     /* Primary */
     --primary-soft-red: hsl(7, 99%, 70%);
@@ -88,14 +82,14 @@ body {
 
 .hero-text {
     font-size: 3rem;
-    letter-spacing: .1em;
+    letter-spacing: .1em;   /* since fraunces is a variable font, there may be other ways to control letter-spacing */
     text-align: center;
     color: var(--neutral-white);
     text-transform: uppercase;
 }
 
 .arrow-down {
-    /* these two don't seem to have an effect much */
+    /* these two don't seem to have an effect at first glance */
     object-fit: cover; 
     min-height: 0;
     /* animates the arrow */
@@ -123,7 +117,9 @@ body {
 }
 
 .logo {
-    /* next two lines are just to make the logo a bit bigger */
+    /* next two lines are just to make the logo a bit bigger, not needed since svg was designated as an img */
+    /* transform-origin: top left;
+    transform: scale(1.2); */
     padding: 1em;
     outline: 2px blue dashed;
 }
@@ -131,11 +127,13 @@ body {
 nav {
     /* outline: 5px green solid; */
     /* colors don't exist yet */
-    background-color: var(--primary-color, white);
-    border-bottom: 1px solid var(--hover-color);
+    /* background-color: var(--primary-color, white); */
+    /* border-bottom: 1px solid var(--hover-color); */
+    /* padding-block: 1em; */
+    color: white;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 699px) {
     nav {
         /* coded here is for menu sliding from the right */
         /* position: fixed;
@@ -148,6 +146,7 @@ nav {
         transition: right 300ms ease-in-out; */
 
         /* code here for menu dropping from the top */
+        background-color: var(--neutral-white, white);
         position: fixed;
         /* Need this so the menu stretches all the way to the left */
         left: 0;
@@ -160,6 +159,8 @@ nav {
         z-index: 10;
         border-left: 1px solid var(--hover-color);
         transition: top 300ms ease-in-out;
+
+        /* all code up top needs to be replaced since the deign file shows the mobile menu looks like a dialog */
     }
 }
 /* removes the bullet points */
@@ -176,7 +177,7 @@ nav a {
     font-family: "Barlow", serif;
     width: 100%;
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--neutral-very-dark-desaturated-blue);   /* not visible on mobile since it's white */
     padding: 1em 2em 1em 2.5em;
     transition: background-color 150ms ease;
 }
@@ -241,56 +242,64 @@ nav.show~#overlay {
     outline: 3px solid #ffffff;
 }
 
-/* .features {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-} */
-
-/* .features .panel {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-} */
-
-.panel.cherry,
-.panel.kumquat {
-    display: grid;
-    /* grid-template-columns: 1fr 1fr; */
+/* main-feature here. line 422 for desktop mode */
+.main-feature {
+    /* display: flex;
+    flex-wrap: wrap; */
 }
-/* places images and text inside same panel (like in the hero), but only for cherry and kumquat */
-.panel.cherry > *,
-.panel.kumquat > * {
+
+.features:has(.cherry),
+.features:has(.kumquat) {
+    display: grid;
+    outline: 5px green dashed;
+}
+
+.features:has(.cherry) > *,
+.features:has(.kumquat) > *{
     grid-area: 1/-1;
-    /* margin: 0 auto; */
-    /* place-content: center; */
+}
+
+.features:has(.cherry) > .text,
+.features:has(.kumquat) > .text {
+    align-self: end;
+    padding-inline: clamp(1.5rem, -6.8654rem + 35.6923vw, 8.75rem); /* 375-700?px, 1.5-8.75rem */
+    padding-block: clamp(3rem, -5.0769rem + 34.4615vw, 10rem);  /* 375-699px, 3-10rem */
+}
+
+.features:has(.cherry) > .text p,
+.features:has(.kumquat) > .text p {
+    font-size: .95em;   /* 95% of 16px */
+}
+
+.features:has(.cherry) > .text h3,
+.features:has(.kumquat) > .text h3 {
+    font-size: 1.4em;   /* 16px * 1.4 (multiplier) */
+    margin-inline: auto;
+}
+
+.panel {
+    /* width: 50%;
+    height: auto; */
+    border: 5px solid gold;
+}
+
+/* none of these work? */
+.panel > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .text {
-    /* makes the h3s start at the same position for both cherry and kumquat */
-    /* TODO: for the egg and cup though, it's weird for now */
-    /* height: 40%; */
-
-    /* works for 375px viewport, 3 lines for cherry and kumquat */
-    /* padding-inline: 1em;
-    text-align: center;
-    align-self: end; */
-    /* display: flex;
-    flex-direction: column; */
-
-    /* min-width: 20em; */
     /* max-width: 50%; */
-    /* min-height: 40%; */
-    /* margin-top: 40%; */
-    /* measured in both mobile and desktop: 36px */
-    /* gap: 2em; */
-    /* text-align: center; */
-    /* align-self: flex-end; */
-    /* justify-content: space-around; */
-    /* margin-top: 5em; */
-
-    /* padding-inline: 3.75em;
-    padding-block: 8em; */
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+    /* padding-inline: 3.75em; */
+    padding-inline: clamp(2.5rem, -4.7115rem + 30.7692vw, 8.75rem); /* 375-700px, 2.5-8.75rem */
+    /* padding-inline: 8.75em; */
+    /* padding-block: .1em; */ /* 5@1440px. if padding inline is still reduced, .25 is doable */
+    padding-block: 8em;
 }
 
 .text h3, a {
@@ -299,21 +308,25 @@ nav.show~#overlay {
 }
 
 .text h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1em;
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1.5em;
+    /* max-width: 70%; */ /* 60% at desktop, 70% at 700px,  65% at 375px */
+    /* set so that h3 line wraps according to the design */
+    max-width: 8em;
+    margin-inline: auto;
 }
+
 .text p {
     font-family: "Barlow", serif;
     color: var(--neutral-very-dark-desaturated-blue, black);
-    margin-bottom: 1.5em;
+    margin-bottom: 2em;
 }
 
-/* for the egg and cup panels which has <a> links */
 .text a {
+    font-size: .9em;
+    width: fit-content;
     text-transform: uppercase;
-}
-
-.text > a {
     /* PROBLEM: With display: flex in .text above, the <a> is now a block element and the underline technique below stretches more than its length */
     /* text-decoration-color: var(--primary-yellow); */
     padding-inline: .5em;
@@ -323,7 +336,7 @@ nav.show~#overlay {
 
 /* DuckDuckGo's AI gave this hint with search prompt: 'blurring underline of anchor tag' */
 /* Me added z-index and adjusted stuff */
-.text > a::after {
+.text a::after {
     content: ''; /* Create a pseudo-element */
     position: absolute; /* Position it absolutely */
     z-index: -5; /* Move it behind the text */
@@ -336,18 +349,14 @@ nav.show~#overlay {
     /* transition: all 0.3s ease; */ /* Smooth transition */
 }
 
-.egg + .text > a::after {
+.egg + .text a::after {
     background-color: var(--primary-yellow);
+    opacity: 0.5;
 }
-.cup + .text > a::after {
+.cup + .text a::after {
     background-color: var(--primary-soft-red);
+    opacity: 0.5;
 }
-
-.cherry > .text,
-.kumquat > .text {
-    align-self: end;
-}
-
 
 /* sets formatting for the main block of 'clients' */
 .clients {
@@ -358,13 +367,13 @@ nav.show~#overlay {
     text-align: center;
 }
 
-.clients h4 {
+.clients h3 {
     text-transform: uppercase;
     letter-spacing: .3em;
     /* color: var(--neutral-very-dark-grayish-blue); */
 }
 
-.clients h4,
+.clients h3,
 .customer_position {
     color: var(--neutral-very-dark-grayish-blue);
 }
@@ -481,7 +490,8 @@ footer {
 
 .attribution a { color: hsl(228, 45%, 44%); }
 
-@media screen and (min-width: 701px) {
+/* TODO: Mobile menu 'peeks' out between 699-701px */
+@media screen and (min-width: 700px) {
     /* hides the hamburger and 'x' button on larger viewports */
     #open-sidebar-button,
     #close-sidebar-button {
@@ -496,9 +506,9 @@ footer {
     /* sets equal padding left-right for each link */
     nav a {
         padding-left: 2em;
+        color: var(--neutral-white);
     }
-
-    /*  */
+    
     /* nav a:hover {
         border-bottom: 2px solid var(--text-color);
     } */
@@ -518,41 +528,74 @@ footer {
         display: none;
     }
 
-    .features {
+    /* main-feature here. line 244 for mobile mode */
+    .main-feature {
         display: flex;
         flex-wrap: wrap;
-        /* justify-content: center; */
+    }
+
+    .features:has(.cherry),
+    .features:has(.kumquat) {
+        /* display: grid; */
+        max-width: 50%;
+    }
+
+    .features:has(.cherry) .text,
+    .features:has(.kumquat) .text {
+        max-width: unset;
+        padding-inline: clamp(1.25rem, -8.9189rem + 23.2432vw, 12rem); /* 700-1440px, 1.5-12rem */
+        padding-block: clamp(0.1rem, -4.5351rem + 10.5946vw, 5rem); /* 700-1440px, .1-5rem */
+    }
+    .features {
+        display: flex;
+        /* max-width: 50%; */
     }
 
     /* Here, the HTML the picture of the 'egg' is in the same position in the code as the rest, but in desktop mode the egg has to be on the right side */
-    .features:first-of-type {
-        flex-direction: row-reverse;
+    .features .panel.egg {
+        order: 1;
     }
 
-    /* TODO: when viewport is ~792px, images egg and cup start to shrink vertically but maintains aspect-ratio, leaving white space at the bottom */
-    /* CSS below does not seem to work. Other than this, the site works well enough. Only the menu needs taken care of */
-    /* .panel picture > img {
-        margin: 0 auto;
-    } */
 
+    /* 'tis to keep the text class in egg and cup from being wider than the image */
+    /* it does make the text class in cherry and kumquat rather slim */
     .text {
-        /* padding-block: 0.5em;
-        margin-inline: 10em;
-        flex: 1; */
+        max-width: 50%;
     }
 
-    .egg + .text,
-    .cup + .text {
-        /* margin-inline: 6em;
-        text-align: left; */
-        /* align-self: center; */
+    .text h3 {
+        /* returns the h3 from being centered to left aligned */
+        margin-inline: unset;
+        /* set so that h3 line wraps according to the design */
+        max-width: 11em;
     }
+
+    .egg + .text {
+        text-align: left; 
+        padding-inline-start: clamp(2rem, -7.4595rem + 21.6216vw, 12rem);   /* 700-1440px, 2-12rem, left padding grows larger than right */
+        padding-inline-end: clamp(2rem, -3.6757rem + 12.973vw, 8rem);   /* 700-1440px, 2-8rem, right padding grows smaller than left */
+    }
+
+    .cup + .text {
+        text-align: left;
+        padding-inline-start: clamp(2rem, -3.6757rem + 12.973vw, 8rem); /* 700-1440px, 2-8rem, left padding grows smaller than right */
+        padding-inline-end: clamp(2rem, -7.4595rem + 21.6216vw, 12rem); /* 700-1440px, 2-12rem, right padding grows larger than left */
+    }
+
+    .egg + .text a,
+    .cup + .text a {
+        /* display: block;
+        width: fit-content; */
+        /* margin-inline-start: auto; */
+        /* text-align: left; */
+    }
+
 
     .testimonials {
         max-width: 65em;
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between  ;
+        justify-content: space-between;
 
         margin-inline: auto;
     }

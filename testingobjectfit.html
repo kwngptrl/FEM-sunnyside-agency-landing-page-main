@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      outline: 1px red solid;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .main-feature {
+      /* display: flex;
+      flex-wrap: wrap; */
+    }
+    
+    @media screen and (min-width: 701px) {
+      .main-feature {
+        /* flex-wrap: nowrap; */
+      }
+    }
+
+    .features {
+      width: 100%;
+      /* margin: 0 auto; */
+
+      display: flex;
+    }
+
+    .features>* {
+      /* grid-area: 1 / -1; */
+    }
+
+    .panel {
+      /* width: 50%;
+      height: auto; */
+      border: 5px solid gold;
+    }
+
+    .panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .text {
+      max-width: 50%;
+
+      text-align: center;
+      align-self: center;
+      /* padding-inline: 3.75em;
+        padding-block: 8em; */
+    }
+
+    .text p {
+      max-width: 60%;
+      margin-inline: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <div class="container">
+      <img src="./images/mobile/image-stand-out.jpg" alt="" />
+    </div> -->
+  <div class="container">
+    <main>
+      <div class="main-feature">
+
+        <section class="features"> <!-- 1440x600 desktop -->
+          <picture class="panel egg"> <!-- 375x312 mobile -->
+            <source media="(min-width: 700px)" srcset="./images/desktop/image-transform.jpg">
+            <img src="./images/mobile/image-transform.jpg" alt="">
+          </picture>
+          <div class="text">  <!-- 375x438 mobile -->
+            <h3>Transform your brand</h3>
+            <p>We are a full-service creative agency specializing in helping brands grow fast. Engage your clients through compelling visuals that do most of the marketing for you.</p>
+            <a href="#">Learn more</a>
+          </div>
+        </section>
+
+        <section class="features"> <!-- 375x312 mobile -->
+          <picture class="panel cup">
+            <source media="(min-width: 700px)" srcset="./images/desktop/image-stand-out.jpg">
+            <img src="./images/mobile/image-stand-out.jpg" alt="">
+          </picture>
+          <div class="text"> <!-- 375x438 mobile -->
+            <h3>Stand out to the right audience</h3>
+            <p>Using a collaborative formula of designers, researchers, photographers, videographers, and copywriters,
+              we’ll build and extend your brand in digital places.</p>
+            <a href="#">Learn more</a>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>

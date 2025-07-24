@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      outline: 1px red solid;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .main-feature {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    
+    @media screen and (min-width: 701px) {
+      .main-feature {
+        flex-wrap: nowrap;
+      }
+    }
+
+    .features {
+      width: 90vw;  /* no effect for this example html until full viewport */
+      margin: 0 auto;
+
+      display: grid;
+      /* inline-size: 50%; */ /* prevents wrapping when viewport transitions to mobile */
+    }
+
+    .features>* {
+      grid-area: 1 / -1;
+    }
+
+    .panel {
+      /* width: 50%; */
+      /* height: auto; */
+      border: 5px solid gold;
+    }
+
+    .panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .text {
+      text-align: center;
+      align-self: end;
+      /* padding-inline: 3.75em;
+        padding-block: 8em; */
+    }
+
+    .text p {
+      max-width: 60%;
+      margin-inline: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- <div class="container">
+        <img src="./images/mobile/image-stand-out.jpg" alt="" />
+      </div> -->
+      <!-- 375x312 mobile -->
+    <!-- <section class="features"> 
+      <picture class="panel cup">
+        <source media="(min-width: 700px)" srcset="./images/desktop/image-stand-out.jpg">
+        <img src="./images/mobile/image-stand-out.jpg" alt="">
+      </picture>
+      <div class="text">
+        <h3>Stand out to the right audience</h3>
+        <p>Using a collaborative formula of designers, researchers, photographers, videographers, and copywriters, we’ll
+          build and extend your brand in digital places.</p>
+        <a href="#">Learn more</a>
+      </div>
+    </section> -->
+    <main>
+      <div class="main-feature">
+        <section class="features"> <!-- 1440x600 desktop -->
+          <picture class="panel cherry"> <!-- 375x600 mobile -->
+            <source media="(min-width: 701px)" srcset="./images/desktop/image-graphic-design.jpg">
+            <img src="./images/mobile/image-graphic-design.jpg" alt="">
+          </picture>
+          <div class="text">
+            <h3>Graphic design</h3>
+            <p>Great design makes you memorable. We deliver artwork that underscores your brand message and captures potential clients’ attention.</p>
+          </div>
+        </section>
+
+        <section class="features">
+          <picture class="panel kumquat"> <!-- 375x600 mobile,  -->
+            <source media="(min-width: 701px)" srcset="./images/desktop/image-photography.jpg">
+            <img src="./images/mobile/image-photography.jpg" alt="">
+          </picture>
+          <div class="text">
+            <h3>Photography</h3>          
+            <p>Increase your credibility by getting the most stunning, high-quality photos that improve your business image.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>

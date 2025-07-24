@@ -1,0 +1,631 @@
+@import url('./reset.css');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Fraunces:opsz,wght@9..144,700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Fraunces:opsz,wght@9..144,900&display=swap'); */
+
+/* <uniquifier>: Use a unique and descriptive class name */
+.fraunces {
+    font-family: "Fraunces", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:
+      "SOFT" 0,
+      "WONK" 0;
+}
+
+.barlow-regular {
+    font-family: "Barlow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.barlow-semibold {
+    font-family: "Barlow", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+    outline: 1px red solid;
+}
+
+:root {
+    /* Primary */
+    --primary-soft-red: hsl(7, 99%, 70%);
+    --primary-yellow: hsl(51, 100%, 49%);
+    --primary-dark-desaturated-cyan: hsl(167, 40%, 24%); /*  graphic design text */
+    --primary-dark-blue: hsl(198, 62%, 26%); /*  photography text */
+    --primary-dark-moderate-cyan: hsl(168, 34%, 41%); /*  footer */
+    
+    /* Neutral */
+    --neutral-very-dark-desaturated-blue: hsl(212, 27%, 19%);
+    --neutral-very-dark-grayish-blue: hsl(213, 9%, 39%);
+    --neutral-dark-grayish-blue: hsl(232, 10%, 55%);
+    --neutral-grayish-blue: hsl(210, 4%, 67%);
+    --neutral-white: hsl(0, 0%, 100%);
+    
+    /* font body copy */
+    --fs-body-copy: 18px;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+/* Sets max width for the design as per the FEM guidelines and centers it */
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* Sets up the hero section and menubar */
+.hero {
+    display: grid;
+}
+
+/* Places image:orange and moves it back */
+.hero-image {
+    width: 100%;
+    height: auto;
+    grid-area: 1/-1;
+    z-index: -1;
+}
+
+/* 'overlay is the text + the downward pointing svg arrow */
+/* they are placed on top of the orange */
+.hero-overlay {
+    grid-area: 1/-1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5em;
+}
+
+.hero-text {
+    font-size: 3rem;
+    letter-spacing: .1em;
+    text-align: center;
+    color: var(--neutral-white);
+    text-transform: uppercase;
+}
+
+.arrow-down {
+    /* these two don't seem to have an effect much */
+    object-fit: cover; 
+    min-height: 0;
+    /* animates the arrow */
+    animation: 1.5s ease-in-out 0s infinite alternate pointing;
+}
+
+@keyframes pointing {
+    from {
+        transform: translateY(-4em);
+    }
+    to {
+        transform: translateY(-1em);
+    }
+}
+/* Here, the ☰ and ✖ are still separate and visible from each other */
+.menubar {
+    grid-area: 1/-1;
+    
+    display: flex;
+    /* splits the logo and the navbar apart */
+    justify-content: space-between;
+    /* without this the flex of the navbar extends the full height of the grid area it is in because the image is that tall */
+    /* and the hamburger is placed in middle of it */
+    align-items: start;
+}
+
+.logo {
+    /* next two lines are just to make the logo a bit bigger */
+    padding: 1em;
+    outline: 2px blue dashed;
+}
+
+nav {
+    /* outline: 5px green solid; */
+    /* colors don't exist yet */
+    background-color: var(--primary-color, white);
+    border-bottom: 1px solid var(--hover-color);
+}
+
+@media screen and (max-width: 700px) {
+    nav {
+        /* coded here is for menu sliding from the right */
+        /* position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: min(15em, 100%);
+        z-index: 10;
+        border-left: 1px solid var(--hover-color);
+        transition: right 300ms ease-in-out; */
+
+        /* code here for menu dropping from the top */
+        position: fixed;
+        /* Need this so the menu stretches all the way to the left */
+        left: 0;
+        /* This hides the menu at the top until it is needed */
+        top: -100%;
+        /* If uncommented, dropdown menu stretches all the way to the bottom. Commented out, only drops to however many items are in the menu */
+        /* height: 100vh; */
+        /* covers the entire viewport */
+        width: 100%;
+        z-index: 10;
+        border-left: 1px solid var(--hover-color);
+        transition: top 300ms ease-in-out;
+    }
+}
+/* removes the bullet points */
+nav ul {
+    list-style: none;
+}
+
+nav li {
+    display: flex;
+}
+
+nav a {
+    /* width 100% so that the hover effect will take place on mobile */
+    font-family: "Barlow", serif;
+    width: 100%;
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 1em 2em 1em 2.5em;
+    transition: background-color 150ms ease;
+}
+
+nav a:hover {
+    /* no colors yet */
+    background-color: var(--hover-color);
+}
+
+nav a.accent-link {
+    /* no colors yet */
+    background-color: var(--accent-color);
+}
+
+#open-sidebar-button,
+#close-sidebar-button {
+    margin-left: auto;
+    display: block;
+    background: none;
+    border: none;
+    padding: 1em;
+    cursor: pointer;
+}
+
+#overlay {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    display: none;
+}
+
+nav.show {
+    /* right: 0; */
+    top: 0;
+}
+
+nav.show~#overlay {
+    display: block;
+}
+
+.skip-link {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: opacity 0.3s ease;
+}
+
+.skip-link:focus {
+    opacity: 1;
+    pointer-events: auto;
+    outline: 3px solid #ffffff;
+}
+
+.main-feature {
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(1fr, 700px)); */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* flex-wrap: wrap;
+    justify-content: center;
+    outline: 5px orange dotted; */
+}
+
+@media screen and (min-width: 701px) {
+    .main-feature {
+        display: flex;
+        flex-wrap: wrap;
+    }
+  }
+.features {
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    width: 100%; */
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: center; */
+    outline: 5px blue solid;
+    margin: 0 auto; /* should be for desktop mode, but not for cherry and kumquat */
+
+}
+
+@media screen and (min-width: 701px) {
+    .features {
+        display: flex;
+      /* flex-wrap: wrap; */
+    }
+  }
+.panel {
+    /* width: 50%;
+    height: auto; */
+    border: 5px solid gold;
+}
+
+/* none of these work */
+.panel > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* .features .panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+} */
+
+/* at 1066px the egg and cup start shrink inside their space */
+
+.features:has(.cherry),
+.features:has(.kumquat) {
+    display: grid;
+    outline: 5px green dashed;
+    /* inline-size: 50%; */ /* if enabled, cherry and kumquat finally placed side by side. However, resizing viewport img is shrinking. */
+}
+/* places images and text inside same panel (like in the hero), but only for cherry and kumquat */
+.features:has(.cherry) > *,
+.features:has(.kumquat) > * {
+    grid-area: 1/-1; 
+    align-self: end; /* works for .text-- and everything else since selector is * */
+}
+
+.text {
+    /* makes the h3s start at the same position for both cherry and kumquat */
+    /* TODO: for the egg and cup though, it's weird for now */
+    /* height: 40%; */
+
+    /* works for 375px viewport, 3 lines for cherry and kumquat */
+    /* padding-inline: 1em;
+    text-align: center;
+    align-self: end; */
+    /* display: flex;
+    flex-direction: column; */
+
+    /* min-width: 20em; */
+    /* max-width: 50%; */
+    /* min-height: 40%; */
+    /* margin-top: 40%; */
+    /* measured in both mobile and desktop: 36px */
+    /* gap: 2em; */
+    text-align: center;
+    align-self: center;
+    justify-self: center; /* with this max-width is working for cherry and kumquat */
+    /* justify-content: space-around; */
+    /* margin-top: 5em; */
+
+    /* padding-inline: 3.75em; */
+    padding-block: 8em;
+
+    max-width: 50%; /* not for cherry and kumquat */
+    /* inline-size: 50%; */
+
+}
+
+.text h3, a {
+    font-family: "Fraunces", serif;    
+    color: var(--neutral-very-dark-desaturated-blue, black);
+}
+
+.text h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1em;
+}
+.text p {
+    font-family: "Barlow", serif;
+    color: var(--neutral-very-dark-desaturated-blue, black);
+    margin-bottom: 1.5em;
+
+    max-width: 60%; /* try a min() function here */
+    margin-inline: auto;
+}
+
+/* for the egg and cup panels which has <a> links */
+.text a {
+    text-transform: uppercase;
+}
+
+.text > a {
+    /* PROBLEM: With display: flex in .text above, the <a> is now a block element and the underline technique below stretches more than its length */
+    /* text-decoration-color: var(--primary-yellow); */
+    padding-inline: .5em;
+    text-decoration: none; /* Remove default underline */
+    position: relative; /* Positioning for the pseudo-element */
+}
+
+/* DuckDuckGo's AI gave this hint with search prompt: 'blurring underline of anchor tag' */
+/* Me added z-index and adjusted stuff */
+.text > a::after {
+    content: ''; /* Create a pseudo-element */
+    position: absolute; /* Position it absolutely */
+    z-index: -5; /* Move it behind the text */
+    left: 0; /* Align to the left */
+    bottom: .02em; /* Align to the bottom */
+    height: .4em; /* Height of the underline */
+    width: 100%; /* Full width of the link */
+    /* background-color: var(--primary-yellow); */ /* Color of the underline */
+    filter: blur(2px); /* Apply blur effect */
+    /* transition: all 0.3s ease; */ /* Smooth transition */
+}
+
+.egg + .text > a::after {
+    background-color: var(--primary-yellow);
+}
+.cup + .text > a::after {
+    background-color: var(--primary-soft-red);
+}
+
+.cherry > *,
+.kumquat > * {
+
+    /* max-width: 720px; */
+}
+
+/* .cherry > .text,
+.kumquat > .text {
+    align-self: end;
+    
+} */
+
+
+/* sets formatting for the main block of 'clients' */
+.clients {
+    /* for desktop */
+    /* padding-block: 12em; */
+    /* for mobile */
+    padding-block: 3.5em;    
+    text-align: center;
+}
+
+.clients h4 {
+    text-transform: uppercase;
+    letter-spacing: .3em;
+    /* color: var(--neutral-very-dark-grayish-blue); */
+}
+
+.clients h4,
+.customer_position {
+    color: var(--neutral-very-dark-grayish-blue);
+}
+
+.card {
+    /* limit card width to: */
+    max-width: 19em;
+    /* separates each card vertically */
+    margin-top: 3.7em;
+    /* centers the card horizontally */
+    margin-inline: auto;
+}
+
+.card > * {
+    /* centers elements inside the card */
+    /* for the image */
+    margin: 0 auto;
+    /* for the text */
+    text-align: center;     
+}
+
+.card .comment {
+    padding-block: 2.3em;
+}
+
+.card .comment,
+.card .customer_position {
+    font-family: "Barlow", sans-serif;
+    /* background-color: beige; */
+}
+
+.card .customer {
+    font-family: "Fraunces", serif;
+    /* spaces all p elements vertically */
+    /* padding-block: 1.5em; */
+    padding-bottom: 1.16em;
+}
+
+.card .customer {
+    font-family: "Fraunces", serif;
+    padding-bottom: 1.16em;
+}
+
+.card img {
+    /* rounds the image */
+    border-radius: 50%;
+    /* sizes it accordingly, 72px */
+    width: 4em;
+}
+
+.photo-bar {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.photo-bar picture {
+    /* allows two images side-by-side */
+    width: 50%;
+}
+
+footer {
+    /* background-color: var(--primary-dark-moderate-cyan); */
+    background-color: hsl(169, 42%, 65%);
+    padding: 2em;
+    height: 20em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.sunnyfooter {
+    fill: var(--primary-dark-desaturated-cyan)
+}
+
+.lower-links, .socials {
+    /* sets width. Not max-width, doing that would bunch up the lists */
+    width: 18em;
+    /* removes the bulletpoints */
+    list-style: none;
+    /* puts li(s) side-by-side */
+    display: flex;
+}
+
+.lower-links > li > a,
+.socials > li > a {
+    /* changes font to */
+    font-family: "Barlow", serif;
+    /* removes underline */
+    text-decoration: none;
+    /* sets color to */
+    color: var(--primary-dark-desaturated-cyan)
+}
+
+.lower-links {
+    /* spaces items apart */
+    justify-content: space-between;
+}
+
+.socials {
+    /* to adhere more closely to the design */
+    margin-top: 2em;
+    /* spaces items apart */
+    justify-content: space-evenly;
+}
+
+.attribution {
+    font-size: 11px;
+    text-align: center;
+    background-color: var(--neutral-white);
+    width: 100%;
+}
+
+.attribution a { color: hsl(228, 45%, 44%); }
+
+@media screen and (min-width: 701px) {
+    /* hides the hamburger and 'x' button on larger viewports */
+    #open-sidebar-button,
+    #close-sidebar-button {
+        display: none;            
+    }
+
+    /* places navigation items in a line in a larger viewport */
+    nav ul {
+        display: flex;
+    }
+
+    /* sets equal padding left-right for each link */
+    nav a {
+        padding-left: 2em;
+    }
+
+    /*  */
+    /* nav a:hover {
+        border-bottom: 2px solid var(--text-color);
+    } */
+    
+    /* only for multipage links, or maybe SPAs */
+    /* nav a.active-link {
+        border-bottom: 2px solid var(--text-color);
+    } */
+
+    /* shifts the other list items to the right side */
+    /* nav .home-li {
+        margin-right: auto;
+    } */
+
+    /* switches the overlay off, if the mobile menu is 'shown' when the browser viewport is dragged/maximized */
+    nav.show~#overlay {
+        display: none;
+    }
+
+    .features {/* 
+        display: flex;
+        flex-wrap: wrap; */
+        /* justify-content: center; */
+    }
+
+    /* Here, the HTML the picture of the 'egg' is in the same position in the code as the rest, but in desktop mode the egg has to be on the right side */
+    .features .panel.egg {
+        order: 1;
+    }
+
+    /* TODO: when viewport is ~792px, images egg and cup start to shrink vertically but maintains aspect-ratio, leaving white space at the bottom */
+    /* CSS below does not seem to work. Other than this, the site works well enough. Only the menu needs taken care of */
+    /* .panel picture > img {
+        margin: 0 auto;
+    } */
+
+    .text {
+        /* padding-block: 0.5em;
+        margin-inline: 10em;
+        flex: 1; */
+    }
+
+    /* .cherry + .text,
+    .kumquat + .text {
+        padding-inline: 3.75em;
+        padding-block: 8em;
+    } */
+
+    .egg + .text,
+    .cup + .text {
+        /* margin-inline: 6em;
+        text-align: left; */
+        /* align-self: center; */
+    }
+
+    .testimonials {
+        max-width: 65em;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        margin-inline: auto;
+    }
+
+    .clients {
+        /* puts more whitespace for desktop */
+        padding-block: 12em;
+    }
+
+    .photo-bar picture {
+        width: 25%;
+    }
+}
