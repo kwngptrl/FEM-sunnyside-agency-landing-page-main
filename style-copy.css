@@ -29,6 +29,7 @@
     /* Primary */
     --primary-soft-red: hsl(7, 99%, 70%);
     --primary-yellow: hsl(51, 100%, 49%);
+    --primary-yellow-shade: hsla(51, 100%, 49%, 0.35);
     --primary-dark-desaturated-cyan: hsl(167, 40%, 24%); /*  graphic design text */
     --primary-dark-blue: hsl(198, 62%, 26%); /*  photography text */
     --primary-dark-moderate-cyan: hsl(168, 34%, 41%); /*  footer */
@@ -39,6 +40,7 @@
     --neutral-dark-grayish-blue: hsl(232, 10%, 55%);
     --neutral-grayish-blue: hsl(210, 4%, 67%);
     --neutral-white: hsl(0, 0%, 100%);
+    --neutral-white-shade: hsla(0, 0%, 100%, 0.35);
     
     /* font body copy */
     --fs-body-copy: 18px;
@@ -133,7 +135,7 @@ nav {
     color: white;
 }
 
-@media screen and (max-width: 699px) {
+@media screen and (max-width: 700px) {
     nav {
         /* coded here is for menu sliding from the right */
         /* position: fixed;
@@ -151,21 +153,48 @@ nav {
         /* Need this so the menu stretches all the way to the left */
         left: 0;
         /* This hides the menu at the top until it is needed */
-        top: -100%;
+        /* top: -100%; */
+        top: 15%;
+        right: 0;
+        /* margin-top: 10em; */
+        margin-inline: auto;
         /* If uncommented, dropdown menu stretches all the way to the bottom. Commented out, only drops to however many items are in the menu */
         /* height: 100vh; */
+        /* height: 50vh; */
         /* covers the entire viewport */
-        width: 100%;
+        width: 85%;
         z-index: 10;
         border-left: 1px solid var(--hover-color);
-        transition: top 300ms ease-in-out;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 300ms ease-in-out;
+
+        /* position: relative; */
 
         /* all code up top needs to be replaced since the deign file shows the mobile menu looks like a dialog */
     }
+
+    nav::before {
+        content: '';
+        position:absolute;
+        width: 0px;
+        height: 0px;
+        top: -2em;
+        right: 0;
+        border-style: solid;
+        border-width: 0 0 2em 2em;
+        /* border-color: transparent transparent #FF4532 transparent; */
+        border-color: transparent transparent var(--neutral-white) transparent;
+        transform: rotate(0deg);
+    }
+
+
 }
 /* removes the bullet points */
 nav ul {
     list-style: none;
+    /* new addition */
+    margin-block: 2em;
 }
 
 nav li {
@@ -173,6 +202,7 @@ nav li {
 }
 
 nav a {
+    text-align: center;
     /* width 100% so that the hover effect will take place on mobile */
     font-family: "Barlow", serif;
     width: 100%;
@@ -180,6 +210,8 @@ nav a {
     color: var(--neutral-very-dark-desaturated-blue);   /* not visible on mobile since it's white */
     padding: 1em 2em 1em 2.5em;
     transition: background-color 150ms ease;
+    /* new addition */
+    margin-block-end: 1em;
 }
 
 nav a:hover {
@@ -188,9 +220,36 @@ nav a:hover {
 }
 
 nav a.accent-link {
-    /* no colors yet */
-    background-color: var(--accent-color);
+    font-family: "Fraunces", serif;
+    text-transform: uppercase;
+    font-size: .9em;
+    
+    margin-inline: auto;
+    width: fit-content;
+    background-color: var(--primary-yellow);
+    border-radius: 2em;
+    padding-inline-start: 2em;
+    align-self: center; /* otherwise the text tends to be higher rather than centered vertically */
 }
+
+nav a.accent-link:hover {
+    background-color: var(--primary-yellow-shade);
+}
+
+@media screen and (min-width: 700px) {
+    /* move these later below in the other media query */
+    nav a.accent-link {
+        color: var(--neutral-very-dark-desaturated-blue);
+        background-color: var(--neutral-white);
+    }
+
+    nav a.accent-link:hover {
+        color: var(--neutral-white);
+        background-color: var(--neutral-white-shade);
+    }
+}
+
+
 
 #open-sidebar-button,
 #close-sidebar-button {
@@ -212,7 +271,9 @@ nav a.accent-link {
 
 nav.show {
     /* right: 0; */
-    top: 0;
+    /* top: 0; */
+    opacity: 1;
+    visibility: visible;
 }
 
 nav.show~#overlay {
@@ -341,8 +402,8 @@ nav.show~#overlay {
     position: absolute; /* Position it absolutely */
     z-index: -5; /* Move it behind the text */
     left: 0; /* Align to the left */
-    bottom: .02em; /* Align to the bottom */
-    height: .4em; /* Height of the underline */
+    bottom: 0; /* Align to the bottom, was .02em */
+    height: .3em; /* Height of the underline */
     width: 100%; /* Full width of the link */
     /* background-color: var(--primary-yellow); */ /* Color of the underline */
     filter: blur(2px); /* Apply blur effect */
@@ -356,6 +417,10 @@ nav.show~#overlay {
 .cup + .text a::after {
     background-color: var(--primary-soft-red);
     opacity: 0.5;
+}
+
+.text a:hover::after {
+    opacity: 1;
 }
 
 /* sets formatting for the main block of 'clients' */
@@ -466,7 +531,15 @@ footer {
     /* removes underline */
     text-decoration: none;
     /* sets color to */
+    /* color: var(--primary-dark-desaturated-cyan) */
     color: var(--primary-dark-desaturated-cyan)
+}
+
+.lower-links > li > a:hover,
+.socials > li > a > img:hover {
+    color: var(--neutral-white);
+    -webkit-filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1);
 }
 
 .lower-links {
@@ -501,12 +574,16 @@ footer {
     /* places navigation items in a line in a larger viewport */
     nav ul {
         display: flex;
+        margin-block: unset;
     }
 
     /* sets equal padding left-right for each link */
     nav a {
         padding-left: 2em;
         color: var(--neutral-white);
+
+        /* new addition */
+        margin-block-end: unset;
     }
     
     /* nav a:hover {
