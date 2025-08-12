@@ -46,6 +46,10 @@
     --fs-body-copy: 18px;
 }
 
+html {
+    background-color: var(--neutral-very-dark-desaturated-blue);
+}
+
 body {
     min-height: 100vh;
     min-height: 100dvh;
@@ -79,7 +83,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5em;
+    /* gap: 5em; */
 }
 
 .hero-text {
@@ -95,15 +99,26 @@ body {
     object-fit: cover; 
     min-height: 0;
     /* animates the arrow */
-    animation: 1.5s ease-in-out 0s infinite alternate pointing;
+    /* animation: 1.5s ease-in-out 0s infinite alternate pointing; */
+    /* TODO: Arrow starts from lower band and goes up. Should be the opposite. */
+    /* Hmm, alternate-reverse seems to have solved the issue. */
+    animation: 2.5s ease-in-out 0s infinite alternate-reverse pointing;
 }
 
 @keyframes pointing {
-    from {
+    /* from {
         transform: translateY(-4em);
     }
     to {
         transform: translateY(-1em);
+    } */
+    /* from https://css-tricks.com/css-keyframe-animation-delay-iterations/ */
+    0% {
+        transform: translateY(-1em);
+    }
+
+    60%, 100% {
+        transform: translateY(-3em);
     }
 }
 /* Here, the ☰ and ✖ are still separate and visible from each other */
@@ -116,6 +131,7 @@ body {
     /* without this the flex of the navbar extends the full height of the grid area it is in because the image is that tall */
     /* and the hamburger is placed in middle of it */
     align-items: start;
+    margin-top: 1em;
 }
 
 .logo {
@@ -259,7 +275,31 @@ nav a.accent-link:hover {
     border: none;
     padding: 1em;
     cursor: pointer;
+
+    /* position: relative; */
 }
+[aria-expanded="true"] > #openBtnIcon {
+    display: none;
+}
+#closeBtnIcon {
+    /* position: absolute;
+    top: 1em;
+    left: 1em; */
+    background-color: blue;
+    display: none;
+}
+
+[aria-expanded="true"] > #closeBtnIcon {
+    display: block;
+}
+
+#close-sidebar-button {
+    display: none;
+}
+
+/* #close-sidebar-button.show {
+    display: block;
+} */
 
 #overlay {
     background: rgba(0, 0, 0, 0.5);
@@ -307,6 +347,10 @@ nav.show~#overlay {
 .main-feature {
     /* display: flex;
     flex-wrap: wrap; */
+}
+
+.features {
+    background-color: var(--neutral-white);
 }
 
 .features:has(.cherry),
@@ -430,6 +474,8 @@ nav.show~#overlay {
     /* for mobile */
     padding-block: 3.5em;    
     text-align: center;
+
+    background-color: var(--neutral-white);
 }
 
 .clients h3 {
@@ -445,7 +491,8 @@ nav.show~#overlay {
 
 .card {
     /* limit card width to: */
-    max-width: 19em;
+    /* max-width: 19em; */
+    max-width: 21em;
     /* separates each card vertically */
     margin-top: 3.7em;
     /* centers the card horizontally */
@@ -457,11 +504,12 @@ nav.show~#overlay {
     /* for the image */
     margin: 0 auto;
     /* for the text */
-    text-align: center;     
+    text-align: center;
 }
 
 .card .comment {
     padding-block: 2.3em;
+    padding-inline: 1em;
 }
 
 .card .comment,
@@ -555,10 +603,12 @@ footer {
 }
 
 .attribution {
+    margin: 0 auto;
     font-size: 11px;
     text-align: center;
     background-color: var(--neutral-white);
-    width: 100%;
+    /* width: 100%; */
+    max-width: 1440px;
 }
 
 .attribution a { color: hsl(228, 45%, 44%); }
@@ -626,6 +676,7 @@ footer {
     .features {
         display: flex;
         /* max-width: 50%; */
+        /* background-color: var(--neutral-white); */
     }
 
     /* Here, the HTML the picture of the 'egg' is in the same position in the code as the rest, but in desktop mode the egg has to be on the right side */
