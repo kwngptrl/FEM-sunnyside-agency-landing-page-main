@@ -9,8 +9,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
 
   <title>Frontend Mentor | Sunnyside agency landing page</title>
-
-  <link rel="stylesheet" href="style-copy3.css">
+  <!-- this version, along with style-copy3a works. But arrow-down starts colliding with .hero-text at 1200px -->
+  <link rel="stylesheet" href="style-copy3a.css">
 
 </head>
 
@@ -21,7 +21,7 @@
         <source media="(min-width: 700px)" srcset="./images/desktop/image-header.jpg">
         <img src="./images/mobile/image-header.jpg" alt="">
       </picture>
-      <div class="hero-overlay">
+      <!-- <div class="hero-overlay"> -->
         <h1 class="hero-text fraunces">We are creatives</h1>
         <!-- two lines in mobile, 29px tall for 'creative', 41px tall in desktop -->
         <!-- icon-arrow-down.svg -->
@@ -31,9 +31,9 @@
             <path d="M18 3v100M3 95.484l15 15 15-15" />
           </g>
         </svg>
-      </div>
+      <!-- </div> -->
       <!-- navbar starts here -->
-      <div class="menubar">
+      <div class="header-wrapper">
         <!-- next div should be <header> -->
         <header class="header">
           <a class="active-link" aria-current="page" href="index.html">
@@ -61,7 +61,7 @@
             <li class="navbar__item"><a class="accent-link navbar__link" href="contact.html">Contact</a></li>
           </ul>
         </nav>
-        <!-- initially, the next line was placed outside of 'menubar' hence it was not showing and therefore clicking outside the mobile menu had no effect -->
+        <!-- initially, the next line was placed outside of 'header-wrapper' hence it was not showing and therefore clicking outside the mobile menu had no effect -->
         <!-- if line below commented out, menu popup won't close if clicked outside the menu -->
         <div id="overlay" onclick="closeSidebar()" aria-hidden="true"></div>
       </div>
