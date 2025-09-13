@@ -10,7 +10,7 @@
 
   <title>Frontend Mentor | Sunnyside agency landing page</title>
   <!-- this version, along with style-copy3a works. But arrow-down starts colliding with .hero-text at 1200px -->
-  <link rel="stylesheet" href="style-copy3a.css">
+  <link rel="stylesheet" href="style-copy3c.css">
 
 </head>
 
@@ -209,11 +209,28 @@
     const media = window.matchMedia("(width < 700px)");
 
     window.onscroll = function () {
-      if (document.body.scrollTop !== 0 || document.documentElement.scrollTop !== 0) {
+      /* if (document.body.scrollTop !== 0 || document.documentElement.scrollTop !== 0) { */
         console.log('passed through onscroll function');
         closeSidebar();
-      }
+      /* } */
     };
+    /* this works also: */
+    /* window.onscroll = () => {
+      console.log('passed through onscroll function');
+      closeSidebar();
+    }; */
+
+    /* 'show' class leftover when window is resized */
+    /* SOLVED: put both of them inside classList.remove */
+    /* if window is not resized and the hamburger button is un/clicked, the animate class is active */
+    window.addEventListener("resize", (e) => {
+      setTimeout(function () {
+        navbar.classList.remove('animate', 'show');
+    }, 300);
+      updateNavbar(e);
+    });
+
+
     /* this doesn't really do anything, it's from a previous FEM project */
     /* document.addEventListener('click', (e) => {
       console.log(media);
@@ -221,26 +238,26 @@
     }); */
 
     media.addEventListener('change', (e) => {
-      console.log(e.target);
-      updateNavbar(e)
+      console.log('We\'ve moved in/out of 700px: ', e.target);
+      updateNavbar(e);
     });
 
     function updateNavbar(e) {
       const isMobile = e.matches;
-      console.log(isMobile)
+      console.log('isMobile=' + isMobile)
       if (isMobile) {
-        /* navbar.setAttribute('inert', ''); */
-        closeSidebar();
+        navbar.setAttribute('inert', '');
+        /* closeSidebar(); */
       }
       else {
         // desktop device
-        /* navbar.removeAttribute('inert'); */
-        openSidebar();
+        navbar.removeAttribute('inert');
+        /* openSidebar(); */
       }
     }
 
     function openSidebar() {
-      navbar.classList.add('show');
+      navbar.classList.add('animate', 'show');
       openButton.setAttribute('aria-expanded', 'true');
       /* openIcon.style.display = "none"; */
       /* closeIcon.style.display = "block"; */
@@ -249,6 +266,7 @@
     }
     /* PROBLEM: icons shift when hamburger is clicked */
     /* FIXED: in CSS, position: absolute, et cetera wasn't needed at all */
+    /* DONE: TODO: add transition when mobile menu closes */
     function closeSidebar() {
       navbar.classList.remove('show');
       openButton.setAttribute('aria-expanded', 'false');
@@ -257,8 +275,6 @@
       navbar.setAttribute('inert', '');
       console.log('closing sidebar');
     }
-
-
 
     // For Bookmark Links
     // const navLinks = document.querySelectorAll('nav a')
