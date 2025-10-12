@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- same as copy3d but for cleaning up, js now working properly for the inert but convoluted -->
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- displays site properly based on user's device -->
+
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
   <title>Frontend Mentor | Sunnyside agency landing page</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="index.js" defer></script>
+  <!-- this version, along with style-copy3a works. But arrow-down starts colliding with .hero-text at 1200px -->
+  <link rel="stylesheet" href="style-copy3f.css">
+
 </head>
 
 <body>
@@ -18,7 +22,8 @@
         <source media="(min-width: 700px)" srcset="./images/desktop/image-header.jpg">
         <img src="./images/mobile/image-header.jpg" alt="">
       </picture>
-      <h1 class="hero-text">We are creatives</h1>
+      <!-- <div class="hero-overlay"> -->
+      <h1 class="hero-text fraunces">We are creatives</h1>
       <!-- two lines in mobile, 29px tall for 'creative', 41px tall in desktop -->
       <!-- icon-arrow-down.svg -->
       <svg class="arrow-down" width="36" height="114" xmlns="http://www.w3.org/2000/svg">
@@ -27,15 +32,20 @@
           <path d="M18 3v100M3 95.484l15 15 15-15" />
         </g>
       </svg>
-      <!-- navbar area starts here -->
+      <!-- </div> -->
+      <!-- navbar starts here -->
       <div class="header-wrapper">
+        <!-- next div should be <header> -->
         <header class="header">
           <a class="active-link" aria-current="page" href="index.html">
             <img src="./images/logo.svg" alt="" class="logo">
             <h1 class="sr-only">Sunnyside</h1>
           </a>
         </header>
-        <!-- design doesn't specify that hamburger turns into an 'x' -->
+        <!-- might have to change the aria here to a toggle? -->
+        <!-- 202507-30: Hmm, it seems there is no actual 'x' in the images directory. I've been wasting time? Wonder where I got this 'x' icon. -->
+        <!-- Oh, wait. The 'x' comes from the navbar example, ai yah! -->
+        <!-- MUST SWITCH THIS TO A TOGGLE -->
         <button id="open-sidebar-button" onclick="openSidebar()" aria-label="open sidebar" aria-expanded="false"
           aria-controls="navbar">
           <svg width="24" height="18" xmlns="http://www.w3.org/2000/svg">
@@ -43,6 +53,7 @@
           </svg>
         </button>
         <nav id="navbar" class="navbar">
+          <!-- SOLVED - TODO: between 699px and 700px the menu deploys down just by crossing the value -->
           <ul class="navbar__list">
             <!-- in mobile 329x305, this doesn't include the right triangle at upper right. The hamburger icon is also not included-->
             <li class="navbar__item"><a class="navbar__link" href="about.html">About</a></li>
@@ -115,13 +126,13 @@
 
       <section class="clients"> <!-- 1440 x 417 desktop -->
         <h3 class="clients__header">Client testimonials</h3>
-        <div class="testimonials-wrapper"> <!-- 375x1260 mobile, 1440x775 desktop whole section, not card -->
+        <div class="testimonials"> <!-- 375x1260 mobile, 1440x775 desktop whole section, not card -->
           <div class="card">
             <img class="card__customer-image" src="./images/image-emily.jpg" alt="">
             <p class="card__comment">We put our trust in Sunnyside and they delivered, making sure our needs were met
               and
               deadlines were always hit.</p>
-            <p class="card__customer-name">Emily R.</p>
+            <p class="card__customer-name">Emily R.</p> <!-- should be h3 or h4 -->
             <p class="card__customer-position">Marketing Director</p>
           </div>
 
@@ -159,7 +170,7 @@
           <img src="./images/mobile/image-gallery-cone.jpg" alt="">
         </picture>
         <picture>
-          <!-- zip file had different spelling for this file, sugar-cubes vs sugarcubes, initially yielding a 404 in dev tools -->
+          <!-- zip file actually had different spellings, sugar-cubes vs sugarcubes, yielding a 404 in the console -->
           <source media="(min-width: 700px)" srcset="./images/desktop/image-gallery-sugar-cubes.jpg">
           <img src="./images/mobile/image-gallery-sugar-cubes.jpg" alt="">
         </picture>
@@ -189,12 +200,64 @@
               alt="Click to go to Pinterest"></a></li>
       </ul>
     </footer>
-  </div> <!-- end of container -->
+  </div> <!-- closes container -->
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
     Coded by <a href="https://www.frontendmentor.io/profile/kwngptrl" target="_blank">Wannacode</a>.
   </div>
 
+  <script>
+    const openButton = document.getElementById('open-sidebar-button');
+    const navbar = document.getElementById('navbar');
+    const media = window.matchMedia("(width < 700px)");
+    /* isTrusted, if the scroll was triggered by the user then closeSidebar and updateNavbar is executed */
+    document.addEventListener("scroll", (e) => {
+      console.log('passed through onscroll function');
+      console.log('inert is ' + navbar.hasAttribute('inert'));
+      if (e.isTrusted) {
+        closeSidebar()
+        updateNavbar(e);
+      };
+    });
+
+    media.addEventListener('change', (e) => {
+      console.log('We\'ve moved in/out of 700px: ', e.target);
+      setTimeout(function () {
+        navbar.classList.remove('animate', 'show');
+      }, 300);
+      updateNavbar(e);
+    });
+
+    function updateNavbar(e) {
+      const isMobile = e.matches;
+      console.log('isMobile=' + isMobile);
+      if (isMobile || window.innerWidth < 700) {
+        navbar.setAttribute('inert', '');
+        console.log('inert is ' + navbar.hasAttribute('inert'));
+      }
+      else {
+        // desktop mode
+        navbar.removeAttribute('inert');
+        console.log('inert is ' + navbar.hasAttribute('inert'));
+      }
+    }
+
+    function openSidebar() {
+      navbar.classList.add('animate', 'show');
+      openButton.setAttribute('aria-expanded', 'true');
+      navbar.removeAttribute('inert');
+      console.log('sidebar open and inert is ' + navbar.hasAttribute('inert'));
+    }
+
+    function closeSidebar() {
+      navbar.classList.remove('show');
+      openButton.setAttribute('aria-expanded', 'false');
+      navbar.setAttribute('inert', '');
+      console.log('sidebar is closed and inert is ' + navbar.hasAttribute('inert'));
+    }
+
+    /* updateNavbar(media) */
+  </script>
 </body>
 
 </html>

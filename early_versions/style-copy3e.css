@@ -1,8 +1,17 @@
 @import url('./reset.css');
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Fraunces:opsz,wght@9..144,700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Fraunces:opsz,wght@9..144,900&display=swap'); */
+/* same as style-copy3d but for cleaning up, and possibly to improve the svg using fill (will have to edit footer svgs though). */
 /* <uniquifier>: Use a unique and descriptive class name */
 
-/* .fraunces {
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    outline: 1px red solid;
+}
+
+.fraunces {
     font-family: "Fraunces", serif;
     font-optical-sizing: auto;
     font-weight: 700;
@@ -22,7 +31,7 @@
     font-family: "Barlow", sans-serif;
     font-weight: 600;
     font-style: normal;
-} */
+}
 
 :root {
     /* Primary */
@@ -46,6 +55,7 @@
     /* font body copy */
     --fs-body-copy: 18px;
     --navbar-padding-block: 1em;
+    /* --navbar-padding-inline: 2em; */
     /* 700-1440px, 1.5-2rem */
     --navbar-padding-inline: clamp(1.5rem, 1.027rem + 1.0811vw, 2rem);
 }
@@ -78,14 +88,13 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* stretches it to the entire grid */
+    /* occupies the entire grid */
     grid-area: 1/1/-1/-1;
 }
 
 .hero-text {
     grid-area: 3/1/4/-1;
     align-self: center;
-    font-family: "Fraunces", serif;
     /* 375-1440px, 2.75-3.25rem */
     font-size: clamp(2.75rem, 2.5739rem + 0.7512vw, 3.25rem);
     /* padding declared so hero text will wrap before the text touches the viewport sides */
@@ -103,7 +112,9 @@ body {
     /* these two don't seem to have an effect at first glance */
     object-fit: cover; 
     min-height: 0;
-    /* Arrow animation - starts from lower band and goes up. Alternate-reverse does this. */
+    /* animates the arrow */
+    /* TODO: Arrow starts from lower band and goes up. Should be the opposite. */
+    /* SOLVED: alternate-reverse seems to have solved the issue. */
     animation: 2.5s ease-in-out 0s infinite alternate-reverse pointing;
 }
 
@@ -120,7 +131,7 @@ body {
         transform: translateY(0em);
     }
 }
-
+/* Here, the ☰ and ✖ are still separate and visible from each other */
 .header-wrapper {
     grid-area: 1/1/1/-1;
     
@@ -136,23 +147,43 @@ body {
 
 .logo {
     /* can be removed since there's an align-items: center above */
-    /* Or, keep it so the clickable target area is larger */
+    /* Or, keep it so the target area is larger */
     padding-block: .5em;
+}
+
+.navbar {
+    /* outline: 5px green solid; */
+    /* colors don't exist yet */
+    /* background-color: var(--primary-color, white); */
+    /* border-bottom: 1px solid var(--hover-color); */
+    /* padding-block: 1em; */
+    /* padding-inline-end: 1rem;
+    color: var(--neutral-white); */
 }
 
 @media screen and (max-width: 700px) {
     .navbar {
+        /* coded here is for menu sliding from the right */
+        /* position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: min(15em, 100%);
+        z-index: 10;
+        border-left: 1px solid var(--hover-color);
+        transition: right 300ms ease-in-out; */
+
         /* code here for menu dropping from the top */
         background-color: var(--neutral-white, white);
         position: fixed;
         /* WAS: left: 0; right: 0; */
         inset-inline: 0;
         /* WAS: top: 10em; */
-        inset-block-start: 8em;
+        inset-block-start: 10em;
         /* keeps popup menu centered */
         margin-inline: auto;        
         /* Below was: width: 85%; but the triangle was pointing in a different direction as the viewport is varied  */
-        /* By using calc, the triangle always points to the bottom-right of the hamburger icon */
+        /* By using calc, the triangle always points to the right of the hamburger icon */
         /* the 3em below is the padding-inline of header-wrapper x2 */
         width: calc(100% - 3em);
         /* keeps menu above everything else */
@@ -164,7 +195,7 @@ body {
 
     /* utility class added via JS when button is clicked */
     .animate {
-        transition: opacity 100ms ease-in-out;
+        transition: visibility 300ms ease-in-out, opacity 200ms ease-in-out;
     }
 
     /* the triangle on the upper right of the popup menu */
@@ -173,9 +204,9 @@ body {
         position: absolute;
         width: 0px;
         height: 0px;
-        /* WAS: top: -1.75em; */
+        /* top: -1.75em; */
         inset-block-start: -1.75em;
-        /* WAS: right: 0; */
+        /* right: 0; */
         inset-inline-end: 0;
         border-style: solid;
         border-width: 0 0 2em 2em;
@@ -185,7 +216,7 @@ body {
 }
 
 .navbar__list {
-    /* remove default the bullet points */
+    /* removes the bullet points */
     list-style: none;
     /* padding added to adhere closer to the design */
     padding-block: 2em;
@@ -205,6 +236,7 @@ body {
     text-decoration: none;
     /* font color */
     color: var(--neutral-very-dark-desaturated-blue);
+    /* padding: 1em 2em 1em 2em; */
     padding-block: var(--navbar-padding-block);
     padding-inline: var(--navbar-padding-inline);
     transition: background-color 150ms ease;
@@ -220,7 +252,7 @@ body {
     font-family: "Fraunces", serif;
     text-transform: uppercase;
     font-size: .9em;
-    /* margins are used here since padding is already used for the yellow 'capsule' shape.  */
+    /* margins are used here since padding is used for the yellow 'capsule' shape.  */
     margin-inline: auto;
     margin-block-start: var(--navbar-padding-block);
     width: fit-content;
@@ -258,13 +290,13 @@ body {
     display: block;
     background: none;
     border: none;
-    /* to enlarge the clickable target area */
+    /* to enlarge the target area */
     padding-block: .5em;
     cursor: pointer;
 }
 
 #overlay {
-    /* no background color since the design doesn't have one */
+    /* background: rgba(0, 0, 0, 0.5); */
     position: fixed;
     inset: 0;
     z-index: 9;
@@ -280,8 +312,7 @@ body {
     display: block;
 }
 
-/* not used in this short landing page */
-/* .skip-link {
+.skip-link {
     opacity: 0;
     pointer-events: none;
     position: absolute;
@@ -302,7 +333,13 @@ body {
     opacity: 1;
     pointer-events: auto;
     outline: 3px solid #ffffff;
-} */
+}
+
+/* main-feature here. line 422 for desktop mode */
+.main-feature {
+    /* display: flex;
+    flex-wrap: wrap; */
+}
 
 .panel-about,
 .panel-services {
@@ -319,19 +356,10 @@ body {
     grid-area: 1/-1;
 }
 
-/* for responsiveness of the image */
 .panel__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-@media screen and (min-width: 600px) {
-    /* change the aspect-ratio for the images in panel for the specific viewport width(s), since it's too big otherwise */
-    .panel-services {
-        aspect-ratio: 1/1.2;
-        object-position: 50% 40%;
-    }
 }
 
 .panel__text {
@@ -393,7 +421,7 @@ body {
 }
 
 /* DuckDuckGo's AI gave this hint with search prompt: 'blurring underline of anchor tag' */
-/* Me: Added z-index and adjusted stuff, replaced top, bottom with inset-xxx */
+/* Me added z-index and adjusted stuff, replaced top, bottom with inset-xxx */
 .panel__text-link::after {
     content: '';
     position: absolute;
@@ -409,12 +437,10 @@ body {
 }
 
 .panel__text-link--yellow::after {
-    /* one panel had a light yellow underline link */
     background-color: var(--primary-yellow);
 }
 
 .panel__text-link--soft-red::after {
-    /* another panel has a light red underline link */
     background-color: var(--primary-soft-red);
 }
 
@@ -517,7 +543,7 @@ footer {
 .lower-links, .socials {
     /* sets width. Not max-width, doing that would bunch up the lists */
     width: 18em;
-    /* removes default bullet points */
+    /* removes the bulletpoints */
     list-style: none;
     /* puts li(s) side-by-side */
     display: flex;
@@ -525,6 +551,7 @@ footer {
 
 .lower-link__item,
 .social-link__item {
+    /* changes font to */
     font-family: "Barlow", serif;
     /* removes default link underlines */
     text-decoration: none;
@@ -565,9 +592,8 @@ footer {
 .attribution a { color: hsl(228, 45%, 44%); }
 
 @media screen and (min-width: 700px) {
-    /* for viewport larger than 700px and less than 1201px */
+    /* for viewport larger than 700px and < 1201px */
     .hero {
-        /* makes it look better, otherwise it's suddenly too big */
         aspect-ratio: 5/4;
     }
 
@@ -577,7 +603,6 @@ footer {
     }
 
     .hero-text {
-        /* Optional, but here anyways. The text is just one line. */
         line-height: revert;
     }
 
@@ -590,6 +615,11 @@ footer {
         display: none;            
     }
 
+    .navbar {
+        /* padding-inline-end: 1rem; */
+        /* color: var(--neutral-white); */
+    }
+
     /* places navigation items in a line in a larger viewport */
     .navbar__list {
         display: flex;
@@ -598,22 +628,28 @@ footer {
 
     .navbar__link {
         color: var(--neutral-white);
+
         /* removes margin set in mobile mode, otherwise items not inline with logo */
         margin-block-end: unset;
     }
    
+    /* Not required anymore. WAS: switches the overlay off, if the mobile menu is 'shown' when the browser viewport is dragged/maximized */
+    /* .navbar.show~#overlay {
+        display: none;
+    } */
+
+    /* main-feature here. */
     .main-feature {
         display: flex;
         flex-wrap: wrap;
     }
 
     .panel-about {
-        /* places image and text panels side by side */
         display: flex;
+        /* align-items: center; */  /* causes whitespace for egg and cup images  */
     }
 
     .panel-about:first-of-type {
-        /* swaps text panel and image panel for the first about panel (the egg) */
         flex-direction: row-reverse;
     }
 
@@ -623,7 +659,6 @@ footer {
         --wide-left-right: clamp(2rem, -7.4595rem + 21.6216vw, 12rem);
         --thin-left-right: clamp(2rem, -3.6757rem + 12.973vw, 8rem);
         padding-block: clamp(3rem, 1.1081rem + 4.3243vw, 5rem);
-        /* limits text panel in panel-about to occupy 50%  of the width */
         max-width: 50%;
     }
 
@@ -662,43 +697,35 @@ footer {
     .panel-services {
         /* to make both text and image panels equal */
         max-width: 50%;
-        /* control image size as viewport is varied */
-        aspect-ratio: 1/1.15;
     }
-    /* somewhere around 700.72px the image shown is the mobile version */
-    /* I wonder how that is. Firefox and Chrome both do this. */
-    
-    .panel__text-services--align {
+
+    .panel__text-services--align
+        /* .panel-services .panel__text */ {
         max-width: unset;
         padding-inline: clamp(1.25rem, -8.9189rem + 23.2432vw, 12rem);
         /* 700-1440px, 1.5-12rem */
         padding-block: clamp(0.1rem, -4.5351rem + 10.5946vw, 5rem);
+        /* padding-block: clamp(3rem, -5.0769rem + 34.4615vw, 10rem); */
     }
-    
+
+
+    .testimonials {
+        max-width: 65em;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        margin-inline: auto;
+    }
+
     .clients {
         /* puts more whitespace for desktop */
         padding-block: 12em;
     }
 
-    .testimonials-wrapper {
-        /* limit the wrapper to 65em */
-        max-width: 65em;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        /* center the wrapper inside the container */
-        margin-inline: auto;
-    }
-
     .photo-bar picture {
-        /* allows for four images side-by-side */
+        /* allows four images side-by-side */
         width: 25%;
-    }
-}
-
-@media screen and (min-width: 1000px) {
-    .panel-services {
-        aspect-ratio: 1/1;
     }
 }
 
@@ -719,9 +746,5 @@ footer {
     .arrow-down {
         grid-area: 3/1/5/-1;
         place-self: end center;
-    }
-
-    .panel-services {
-        aspect-ratio: initial;
     }
 }

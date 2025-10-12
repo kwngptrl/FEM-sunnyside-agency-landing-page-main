@@ -5,10 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- displays site properly based on user's device -->
+
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
   <title>Frontend Mentor | Sunnyside agency landing page</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="index.js" defer></script>
+  <!-- this version, along with style-copy3a works. But arrow-down starts colliding with .hero-text at 1200px -->
+  <link rel="stylesheet" href="style-copy3d.css">
+
 </head>
 
 <body>
@@ -18,24 +21,30 @@
         <source media="(min-width: 700px)" srcset="./images/desktop/image-header.jpg">
         <img src="./images/mobile/image-header.jpg" alt="">
       </picture>
-      <h1 class="hero-text">We are creatives</h1>
-      <!-- two lines in mobile, 29px tall for 'creative', 41px tall in desktop -->
-      <!-- icon-arrow-down.svg -->
-      <svg class="arrow-down" width="36" height="114" xmlns="http://www.w3.org/2000/svg">
-        <g stroke="#FFF" stroke-width="6" fill="none" fill-rule="evenodd" stroke-linecap="round"
-          stroke-linejoin="round">
-          <path d="M18 3v100M3 95.484l15 15 15-15" />
-        </g>
-      </svg>
-      <!-- navbar area starts here -->
+      <!-- <div class="hero-overlay"> -->
+        <h1 class="hero-text fraunces">We are creatives</h1>
+        <!-- two lines in mobile, 29px tall for 'creative', 41px tall in desktop -->
+        <!-- icon-arrow-down.svg -->
+        <svg class="arrow-down" width="36" height="114" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#FFF" stroke-width="6" fill="none" fill-rule="evenodd" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M18 3v100M3 95.484l15 15 15-15" />
+          </g>
+        </svg>
+      <!-- </div> -->
+      <!-- navbar starts here -->
       <div class="header-wrapper">
+        <!-- next div should be <header> -->
         <header class="header">
           <a class="active-link" aria-current="page" href="index.html">
             <img src="./images/logo.svg" alt="" class="logo">
             <h1 class="sr-only">Sunnyside</h1>
           </a>
         </header>
-        <!-- design doesn't specify that hamburger turns into an 'x' -->
+        <!-- might have to change the aria here to a toggle? -->
+        <!-- 202507-30: Hmm, it seems there is no actual 'x' in the images directory. I've been wasting time? Wonder where I got this 'x' icon. -->
+        <!-- Oh, wait. The 'x' comes from the navbar example, ai yah! -->
+        <!-- MUST SWITCH THIS TO A TOGGLE -->
         <button id="open-sidebar-button" onclick="openSidebar()" aria-label="open sidebar" aria-expanded="false"
           aria-controls="navbar">
           <svg width="24" height="18" xmlns="http://www.w3.org/2000/svg">
@@ -43,6 +52,7 @@
           </svg>
         </button>
         <nav id="navbar" class="navbar">
+          <!-- SOLVED - TODO: between 699px and 700px the menu deploys down just by crossing the value -->
           <ul class="navbar__list">
             <!-- in mobile 329x305, this doesn't include the right triangle at upper right. The hamburger icon is also not included-->
             <li class="navbar__item"><a class="navbar__link" href="about.html">About</a></li>
@@ -115,20 +125,18 @@
 
       <section class="clients"> <!-- 1440 x 417 desktop -->
         <h3 class="clients__header">Client testimonials</h3>
-        <div class="testimonials-wrapper"> <!-- 375x1260 mobile, 1440x775 desktop whole section, not card -->
+        <div class="testimonials"> <!-- 375x1260 mobile, 1440x775 desktop whole section, not card -->
           <div class="card">
             <img class="card__customer-image" src="./images/image-emily.jpg" alt="">
-            <p class="card__comment">We put our trust in Sunnyside and they delivered, making sure our needs were met
-              and
+            <p class="card__comment">We put our trust in Sunnyside and they delivered, making sure our needs were met and
               deadlines were always hit.</p>
-            <p class="card__customer-name">Emily R.</p>
+            <p class="card__customer-name">Emily R.</p> <!-- should be h3 or h4 -->
             <p class="card__customer-position">Marketing Director</p>
           </div>
 
           <div class="card">
             <img class="card__customer-image" src="./images/image-thomas.jpg" alt="">
-            <p class="card__comment">Sunnyside’s enthusiasm coupled with their keen interest in our brand’s success made
-              it a
+            <p class="card__comment">Sunnyside’s enthusiasm coupled with their keen interest in our brand’s success made it a
               satisfying and enjoyable experience.</p>
             <p class="card__customer-name">Thomas S.</p>
             <p class="card__customer-position">Chief Operating Officer</p>
@@ -159,7 +167,7 @@
           <img src="./images/mobile/image-gallery-cone.jpg" alt="">
         </picture>
         <picture>
-          <!-- zip file had different spelling for this file, sugar-cubes vs sugarcubes, initially yielding a 404 in dev tools -->
+          <!-- zip file actually had different spellings, sugar-cubes vs sugarcubes, yielding a 404 in the console -->
           <source media="(min-width: 700px)" srcset="./images/desktop/image-gallery-sugar-cubes.jpg">
           <img src="./images/mobile/image-gallery-sugar-cubes.jpg" alt="">
         </picture>
@@ -179,22 +187,119 @@
       </ul>
       <!-- socials -->
       <ul class="socials">
-        <li><a class="social-link__item" href="#"><img src="./images/icon-facebook.svg"
-              alt="Click to go to Facebook"></a></li>
-        <li><a class="social-link__item" href="#"><img src="./images/icon-instagram.svg"
-              alt="Click to go to Instagram"></a></li>
-        <li><a class="social-link__item" href="#"><img src="./images/icon-twitter.svg" alt="Click to go to Twitter"></a>
-        </li>
-        <li><a class="social-link__item" href="#"><img src="./images/icon-pinterest.svg"
-              alt="Click to go to Pinterest"></a></li>
+        <li><a class="social-link__item" href="#"><img src="./images/icon-facebook.svg" alt="Click to go to Facebook"></a></li>
+        <li><a class="social-link__item" href="#"><img src="./images/icon-instagram.svg" alt="Click to go to Instagram"></a></li>
+        <li><a class="social-link__item" href="#"><img src="./images/icon-twitter.svg" alt="Click to go to Twitter"></a></li>
+        <li><a class="social-link__item" href="#"><img src="./images/icon-pinterest.svg" alt="Click to go to Pinterest"></a></li>
       </ul>
     </footer>
-  </div> <!-- end of container -->
+    <!-- <div id="overlay" onclick="closeSidebar()" aria-hidden="true"></div> -->
+  </div> <!-- closes container -->
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
     Coded by <a href="https://www.frontendmentor.io/profile/kwngptrl" target="_blank">Wannacode</a>.
   </div>
 
+  <script>
+    const openButton = document.getElementById('open-sidebar-button');
+    /* const closeButton = document.getElementById('close-sidebar-button'); 
+    const openIcon = document.getElementById('openBtnIcon');
+    const closeIcon = document.getElementById('closeBtnIcon'); */
+    const navbar = document.getElementById('navbar');
+    const media = window.matchMedia("(width < 700px)");
+    /* const media = window.matchMedia("(max-width: 700px)"); */
+
+
+    
+    /* this works also: */
+    /* window.onscroll = () => {
+      console.log('passed through onscroll function');
+      closeSidebar();
+    }; */
+
+    /* 'show' class leftover when window is resized */
+    /* SOLVED: put both of them inside classList.remove */
+    /* if window is not resized and the hamburger button is un/clicked, the animate class is active */
+    
+    /* window.addEventListener("resize", (e) => {
+      setTimeout(function () {
+        navbar.classList.remove('animate', 'show');
+      }, 300); */
+      /* updateNavbar(e); */
+    /* }); */
+    
+    window.addEventListener("scroll", (e) => {
+    /* window.onscroll = function (e) { */
+      /* if (document.body.scrollTop !== 0 || document.documentElement.scrollTop !== 0) { */
+        console.log('passed through onscroll function');
+        console.log('inert is ' + navbar.hasAttribute('inert'));
+        closeSidebar(); /* if commented out seems to work. However, in mobile mode with menu deployed, tabbing through past the last contact the focus goes to 'learn more' with the menu still deployed */
+        updateNavbar(e);
+        /* navbar.toggleAttribute('inert'); */
+      /* } */
+    /* }; */
+    });
+    
+    /* this doesn't really do anything, it's from a previous FEM project */
+    /* document.addEventListener('click', (e) => {
+      console.log(media);
+      console.log(e.target.closest('nav'));
+    }); */
+
+    media.addEventListener('change', (e) => {
+      console.log('We\'ve moved in/out of 700px: ', e.target);
+      setTimeout(function () {
+        navbar.classList.remove('animate', 'show');
+      }, 300);
+      updateNavbar(e);
+    });
+
+    function updateNavbar(e) {
+      const isMobile = e.matches;
+      console.log('isMobile=' + isMobile)
+      /* window.innerwidth seems to have solved the problem of inert sometimes going true or false */
+      /* if (isMobile) { */
+      if (isMobile || window.innerWidth < 700) {
+        /* navbar.toggleAttribute('inert'); does work */
+        navbar.setAttribute('inert', '');
+        /* closeSidebar(); */
+        console.log('inert is ' + navbar.hasAttribute('inert'));
+      }
+      else {
+        // desktop device
+        navbar.removeAttribute('inert');
+        console.log('inert is ' + navbar.hasAttribute('inert'));
+        /* openSidebar(); */
+      }
+    }
+
+    function openSidebar() {
+      navbar.classList.add('animate', 'show');
+      openButton.setAttribute('aria-expanded', 'true');
+      navbar.removeAttribute('inert');
+      console.log('sidebar open and inert is ' + navbar.hasAttribute('inert'));
+    }
+    /* PROBLEM: icons shift when hamburger is clicked */
+    /* FIXED: in CSS, position: absolute, et cetera wasn't needed at all */
+    /* DONE: TODO: add transition when mobile menu closes */
+    function closeSidebar() {
+      navbar.classList.remove('show');
+      openButton.setAttribute('aria-expanded', 'false');
+      navbar.setAttribute('inert', '');
+      /* navbar.toggleAttribute('inert'); */
+      console.log('sidebar is closed and inert is ' + navbar.hasAttribute('inert'));
+    }
+
+    // For Bookmark Links
+    // const navLinks = document.querySelectorAll('nav a')
+    // navLinks.forEach(link => {
+    //   link.addEventListener('click', () => {
+    //     closeSidebar()
+    //   })
+    // })
+
+    /* updateNavbar(media) */
+  </script>
 </body>
 
 </html>
