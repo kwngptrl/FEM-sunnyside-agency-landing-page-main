@@ -8,14 +8,14 @@ var debounce_timer;
 window.addEventListener("scroll", (e) => {
     if (debounce_timer) {
         window.clearTimeout(debounce_timer);
+        console.log('inside onscroll function but not closing yet...');
     }
     debounce_timer = window.setTimeout(function () {
         // run your actual function here
         closeSidebar()
         updateNavbar(e);
-        console.log('passed through onscroll function');
-        console.log('inert is ' + navbar.hasAttribute('inert'));
-    }, 60);
+        console.log('...gone through setTimeout and inert is ' + navbar.hasAttribute('inert'));
+    }, 100);
 });
 /* tip ends here */
 

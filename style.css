@@ -1,28 +1,5 @@
 @import url('./reset.css');
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Fraunces:opsz,wght@9..144,700&display=swap');
-/* <uniquifier>: Use a unique and descriptive class name */
-
-/* .fraunces {
-    font-family: "Fraunces", serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
-    font-variation-settings:
-      "SOFT" 0,
-      "WONK" 0;
-}
-
-.barlow-regular {
-    font-family: "Barlow", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.barlow-semibold {
-    font-family: "Barlow", sans-serif;
-    font-weight: 600;
-    font-style: normal;
-} */
 
 :root {
     /* Primary */
@@ -142,16 +119,15 @@ body {
 
 @media screen and (max-width: 700px) {
     .navbar {
-        /* code here for menu dropping from the top */
         background-color: var(--neutral-white, white);
         position: fixed;
         /* WAS: left: 0; right: 0; */
         inset-inline: 0;
         /* WAS: top: 10em; */
         inset-block-start: 8em;
-        /* keeps popup menu centered */
+        /* keep popup menu centered */
         margin-inline: auto;        
-        /* Below was: width: 85%; but the triangle was pointing in a different direction as the viewport is varied  */
+        /* Below WAS: width: 85%; but the triangle was pointing in a different direction as the viewport is varied  */
         /* By using calc, the triangle always points to the bottom-right of the hamburger icon */
         /* the 3em below is the padding-inline of header-wrapper x2 */
         width: calc(100% - 3em);
@@ -174,6 +150,7 @@ body {
         width: 0px;
         height: 0px;
         /* WAS: top: -1.75em; */
+        /* for no visible gap between triangle and menu proper */
         inset-block-start: -1.75em;
         /* WAS: right: 0; */
         inset-inline-end: 0;
