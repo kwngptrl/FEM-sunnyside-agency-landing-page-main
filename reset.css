@@ -27,9 +27,7 @@ body {
 body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-
 }
-
 
 img,
 picture,
@@ -64,7 +62,6 @@ h6 {
 
 
 /* utility classes */
-
 .dark-overlay {
     display: block;
     position: fixed;

@@ -139,8 +139,10 @@ body {
     }
 
     /* utility class added via JS when button is clicked */
+    /* CAUTION: I thought I understood visibility is unanimatable, but without visibility in the mix, closing the menu is abrupt */
+    /* Can use 'all' in place of opacity and visibility and will work similarly */
     .animate {
-        transition: opacity 100ms ease-in-out;
+        transition: visibility 50ms ease-in-out, opacity 100ms ease-in-out;
     }
 
     /* the triangle on the upper right of the popup menu */
@@ -228,7 +230,7 @@ body {
 }
 
 /* the hamburger icon */
-#open-sidebar-button {
+#open-menu-button {
     /* below not required since there is a space-between in header-wrapper */
     /* margin-left: auto; */
     /* next three statements may not be required but just for... */
@@ -303,11 +305,18 @@ body {
     object-fit: cover;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 550px) {
     /* change the aspect-ratio for the images in panel for the specific viewport width(s), since it's too big otherwise */
-    .panel-services {
+    /* below not working unless it's '.panel-services img'. However, may need to be 'initial' afterwards or later viewports are affected */
+    /* .panel-services {
         aspect-ratio: 1/1.2;
-        object-position: 50% 40%;
+        object-position: 50% 20%;
+    } */
+
+    /* turns out there is this class, putting it here and 'aspect-ratio: initial' later on solves the issue. */
+    .panel__image {
+        aspect-ratio: 1/1.2;
+        object-position: 50% 20%;        
     }
 }
 
@@ -563,7 +572,7 @@ footer {
 
     }
     /* hides the hamburger on larger viewports */
-    #open-sidebar-button{
+    #open-menu-button{
         display: none;            
     }
 
@@ -582,6 +591,10 @@ footer {
     .main-feature {
         display: flex;
         flex-wrap: wrap;
+    }
+
+    .panel__image {
+        aspect-ratio: initial;
     }
 
     .panel-about {

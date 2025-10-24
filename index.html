@@ -36,7 +36,7 @@
           </a>
         </header>
         <!-- design doesn't specify that hamburger turns into an 'x' -->
-        <button id="open-sidebar-button" onclick="openSidebar()" aria-label="open sidebar" aria-expanded="false"
+        <button id="open-menu-button" onclick="openMenu()" aria-label="open menu" aria-expanded="false"
           aria-controls="navbar">
           <svg width="24" height="18" xmlns="http://www.w3.org/2000/svg">
             <path d="M24 16v2H0v-2h24zm0-8v2H0V8h24zm0-8v2H0V0h24z" fill="#FFF" fill-rule="evenodd" />
@@ -53,7 +53,7 @@
         </nav>
         <!-- initially, the next line was placed outside of 'header-wrapper' hence it was not showing and therefore clicking outside the mobile menu had no effect -->
         <!-- if line below commented out, menu popup won't close if clicked outside the menu -->
-        <div id="overlay" onclick="closeSidebar()" aria-hidden="true"></div>
+        <div id="overlay" onclick="closeMenu()" aria-hidden="true"></div>
       </div>
       <!-- navbar ends -->
     </div>
